@@ -1368,6 +1368,14 @@ namespace UnityEngine.Rendering.Universal
                 EnqueuePass(m_FinalDepthCopyPass);
             }
 #endif
+// extensions modify begin;
+            var captureActions = CameraCaptureBridge.GetCaptureActions(camera);
+            if (captureActions != null)
+            {
+                m_CapturePass.Setup(captureActions);
+                EnqueuePass(m_CapturePass);
+            }
+// extensions modify end;
         }
 
         /// <inheritdoc />
