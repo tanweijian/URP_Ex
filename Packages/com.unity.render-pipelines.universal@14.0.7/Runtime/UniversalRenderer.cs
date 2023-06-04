@@ -1003,7 +1003,6 @@ namespace UnityEngine.Rendering.Universal
             if (m_mixGammaColorSpace && ((cameraData.isSceneViewCamera && cameraData.forceGammaColorSpace) || cameraData.requireLinearToSRGBConversion))
             {
                 RenderTextureDescriptor descriptor = cameraTargetDescriptor;
-                descriptor.msaaSamples = 1;
                 descriptor.depthBufferBits = (int)DepthBits.None;
 #if UNITY_EDITOR
                 if (!cameraData.isSceneViewCamera)
@@ -1298,10 +1297,12 @@ namespace UnityEngine.Rendering.Universal
                     EnqueuePass(finalPostProcessPass);
                 }
 
-                if (renderingData.cameraData.captureActions != null)
-                {
-                    EnqueuePass(m_CapturePass);
-                }
+// extensions modify begin;
+                // if (renderingData.cameraData.captureActions != null)
+                // {
+                //     EnqueuePass(m_CapturePass);
+                // }
+// extensions modify end;
 
                 // if post-processing then we already resolved to camera target while doing post.
                 // Also only do final blit if camera is not rendering to RT.
