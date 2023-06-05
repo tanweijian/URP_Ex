@@ -6,7 +6,7 @@ namespace UnityEngine.Rendering
     /// <summary>
     /// Bridge class for camera captures.
     /// </summary>
-    public static class  CameraCaptureBridge
+    public static class CameraCaptureBridge
     {
         private static Dictionary<Camera, HashSet<Action<RenderTargetIdentifier, CommandBuffer>>> actionDict =
             new Dictionary<Camera, HashSet<Action<RenderTargetIdentifier, CommandBuffer>>>();

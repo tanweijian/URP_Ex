@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace UnityEngine.Rendering.Universal
 {
     /// <summary>
@@ -14,40 +11,26 @@ namespace UnityEngine.Rendering.Universal
         RTHandle m_CameraColorHandle;
         const string m_ProfilerTag = "Capture Pass";
         private static readonly ProfilingSampler m_ProfilingSampler = new ProfilingSampler(m_ProfilerTag);
-// extensions modify begin;
-        private IEnumerator<Action<RenderTargetIdentifier, CommandBuffer>> captureActions;
-// extensions modify end;
-        
         public CapturePass(RenderPassEvent evt)
         {
             base.profilingSampler = new ProfilingSampler(nameof(CapturePass));
             renderPassEvent = evt;
         }
 
-// extensions modify begin;
-        public void Setup(IEnumerator<Action<RenderTargetIdentifier, CommandBuffer>> actions)
-        {
-            captureActions = actions;
-        }
-// extensions modify end;
-
         /// <inheritdoc/>
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
-// extensions modify begin;
             CommandBuffer cmdBuf = renderingData.commandBuffer;
 
-            m_CameraColorHandle = renderingData.cameraData.renderer.cameraColorTargetHandle;
+            m_CameraColorHandle = renderingData.cameraData.renderer.GetCameraColorBackBuffer(cmdBuf);
 
             using (new ProfilingScope(cmdBuf, m_ProfilingSampler))
             {
-                RenderTargetIdentifier colorAttachmentIdentifier = m_CameraColorHandle.nameID;
+                var colorAttachmentIdentifier = m_CameraColorHandle.nameID;
+                var captureActions = renderingData.cameraData.captureActions;
                 for (captureActions.Reset(); captureActions.MoveNext();)
-                {
-                    captureActions.Current?.Invoke(colorAttachmentIdentifier, renderingData.commandBuffer);
-                }
+                    captureActions.Current(colorAttachmentIdentifier, renderingData.commandBuffer);
             }
-// extensions modify end;
         }
     }
 }
