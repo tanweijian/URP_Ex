@@ -568,7 +568,9 @@ namespace UnityEngine.Rendering.Universal
         /// <summary>
         /// Provides set actions to the renderer to be triggered at the end of the render loop for camera capture.
         /// </summary>
-        public IEnumerator<Action<RenderTargetIdentifier, CommandBuffer>> captureActions;
+// extensions modify begin;
+        public IEnumerator<Action<RTHandle, ScriptableRenderContext, CommandBuffer>> captureActions;
+// extensions modify end;
 
         /// <summary>
         /// The camera volume layer mask.

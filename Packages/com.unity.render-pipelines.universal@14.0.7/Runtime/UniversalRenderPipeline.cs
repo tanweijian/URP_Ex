@@ -1174,7 +1174,9 @@ namespace UnityEngine.Rendering.Universal
             bool canSkipFrontToBackSorting = (baseCamera.opaqueSortMode == OpaqueSortMode.Default && hasHSRGPU) || baseCamera.opaqueSortMode == OpaqueSortMode.NoDistanceSort;
 
             cameraData.defaultOpaqueSortFlags = canSkipFrontToBackSorting ? noFrontToBackOpaqueFlags : commonOpaqueFlags;
-            cameraData.captureActions = CameraCaptureBridge.GetCaptureActions(baseCamera);
+// extensions modify begin;
+            // cameraData.captureActions = CameraCaptureBridge.GetCaptureActions(baseCamera);
+// extensions modify end;
         }
 
         /// <summary>
@@ -1290,6 +1292,10 @@ namespace UnityEngine.Rendering.Universal
 #endif
 
             cameraData.backgroundColor = CoreUtils.ConvertSRGBToActiveColorSpace(backgroundColorSRGB);
+            
+// extensions modify begin;
+            cameraData.captureActions = CameraCaptureBridge.GetCaptureActions(camera);
+// extensions modify end;
         }
 
         static void InitializeRenderingData(UniversalRenderPipelineAsset settings, ref CameraData cameraData, ref CullingResults cullResults,

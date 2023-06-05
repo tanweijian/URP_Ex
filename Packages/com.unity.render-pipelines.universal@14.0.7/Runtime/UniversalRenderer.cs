@@ -1003,7 +1003,6 @@ namespace UnityEngine.Rendering.Universal
             if (m_mixGammaColorSpace && ((cameraData.isSceneViewCamera && cameraData.forceGammaColorSpace) || cameraData.requireLinearToSRGBConversion))
             {
                 RenderTextureDescriptor descriptor = cameraTargetDescriptor;
-                descriptor.msaaSamples = 1;
                 descriptor.depthBufferBits = (int)DepthBits.None;
 #if UNITY_EDITOR
                 if (!cameraData.isSceneViewCamera)
@@ -1290,18 +1289,20 @@ namespace UnityEngine.Rendering.Universal
                 }
 // extensions modify begin;
                 var sourceForFinalPass = (m_mixGammaColorSpace && cameraData.requireSRGBToLinearConversion) ? m_GammaColorTexture : m_ActiveCameraColorAttachment;
-// extensions modify begin;
+// extensions modify end;
                 // Do FXAA or any other final post-processing effect that might need to run after AA.
                 if (applyFinalPostProcessing)
                 {
                     finalPostProcessPass.SetupFinalPass(sourceForFinalPass, true, needsColorEncoding);
                     EnqueuePass(finalPostProcessPass);
                 }
-
-                if (renderingData.cameraData.captureActions != null)
-                {
-                    EnqueuePass(m_CapturePass);
-                }
+                
+// extensions modify begin;
+                // if (renderingData.cameraData.captureActions != null)
+                // {
+                //     EnqueuePass(m_CapturePass);
+                // }
+// extensions modify end;
 
                 // if post-processing then we already resolved to camera target while doing post.
                 // Also only do final blit if camera is not rendering to RT.
@@ -1367,6 +1368,12 @@ namespace UnityEngine.Rendering.Universal
                 EnqueuePass(m_FinalDepthCopyPass);
             }
 #endif
+// extensions modify begin;
+            if (renderingData.cameraData.captureActions != null)
+            {
+                EnqueuePass(m_CapturePass);
+            }
+// extensions modify end;
         }
 
         /// <inheritdoc />
