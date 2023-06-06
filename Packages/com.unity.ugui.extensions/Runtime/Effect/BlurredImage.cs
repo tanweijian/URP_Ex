@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Experimental.Rendering;
 
 namespace UnityEngine.UI
 {
@@ -12,7 +12,11 @@ namespace UnityEngine.UI
         private Camera specifiedCamera;
         private RTHandle captureTexture;
         private Material blitMaterial;
-        
+
+        [Range(0f, 5f)] [SerializeField] private float m_BlurRadius = 0f;
+        [Range(1, 10)] [SerializeField] private int m_Iteration = 2;
+        [Range(1, 8)] [SerializeField] private int m_DownScaling = 2;
+
         public enum SpecifiedCameraType
         {
             MainCamera,
@@ -24,20 +28,21 @@ namespace UnityEngine.UI
         protected override void OnEnable()
         {
             base.OnEnable();
-            
+
             Camera mainCamera = Camera.main;
             if (mainCamera == null)
             {
                 return;
             }
-            
+
             if (m_SpecifiedCameraType == SpecifiedCameraType.MainCamera)
             {
                 specifiedCamera = mainCamera;
             }
             else
             {
-                UniversalAdditionalCameraData baseCameraAdditionalCameraData = mainCamera.GetComponent<UniversalAdditionalCameraData>();
+                UniversalAdditionalCameraData baseCameraAdditionalCameraData =
+                    mainCamera.GetComponent<UniversalAdditionalCameraData>();
                 var cameraStack = baseCameraAdditionalCameraData.cameraStack;
                 if (m_SpecifiedCameraType == SpecifiedCameraType.LastCameraInStack)
                 {
@@ -58,6 +63,7 @@ namespace UnityEngine.UI
                             {
                                 specifiedCamera = cameraStack[i - 1];
                             }
+
                             break;
                         }
                     }
@@ -93,7 +99,7 @@ namespace UnityEngine.UI
             RenderTextureDescriptor descriptor = cameraColorHandle.rt.descriptor;
             descriptor.msaaSamples = 1;
             descriptor.graphicsFormat = GraphicsFormat.B8G8R8A8_UNorm;
-            RenderingUtils.ReAllocateIfNeeded(ref captureTexture, descriptor, name:"BlurredTexture");
+            RenderingUtils.ReAllocateIfNeeded(ref captureTexture, descriptor, name: "BlurredTexture");
             using (new ProfilingScope(cmd, new ProfilingSampler("BlurredCapture")))
             {
                 Blitter.BlitTexture(cmd, cameraColorHandle, captureTexture, blitMaterial, 0);

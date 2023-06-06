@@ -77,7 +77,7 @@ Shader "UI/DefaultEx"
                 UNITY_VERTEX_OUTPUT_STEREO
             };
 
-            TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
+            TEXTURE2D_X(_MainTex); SAMPLER(sampler_MainTex);
             
             CBUFFER_START(UnityPerMaterial)
             float4 _MainTex_ST;
@@ -137,7 +137,7 @@ Shader "UI/DefaultEx"
                 const half invAlphaPrecision = half(1.0 / alphaPrecision);
                 input.color.a = round(input.color.a * alphaPrecision) * invAlphaPrecision;
 
-                half4 color = input.color * (SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv.xy) + _TextureSampleAdd);
+                half4 color = input.color * (SAMPLE_TEXTURE2D_X(_MainTex, sampler_MainTex, input.uv.xy) + _TextureSampleAdd);
 
             #ifdef UNITY_UI_CLIP_RECT
                 half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(input.mask.xy)) * input.mask.zw);

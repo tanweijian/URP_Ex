@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEditor;
 
 [CustomEditor(typeof(LoopScrollRect), true)]
-public class LoopScrollRectInspector : Editor
+public class LoopScrollRectEditor : Editor
 {
     int index = 0;
     float speed = 1000, time = 1;
