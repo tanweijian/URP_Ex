@@ -72,7 +72,7 @@ namespace UnityEngine.UI
 
             if (specifiedCamera != null)
             {
-                CameraCaptureBridge.AddCaptureAction(specifiedCamera, CaptureAction);
+                // CameraCaptureBridge.AddCaptureAction(specifiedCamera, CaptureAction);
                 blitMaterial = CoreUtils.CreateEngineMaterial("Hidden/Universal Render Pipeline/Blit");
             }
             else
@@ -86,7 +86,7 @@ namespace UnityEngine.UI
             base.OnDisable();
             if (specifiedCamera != null)
             {
-                CameraCaptureBridge.RemoveCaptureAction(specifiedCamera, CaptureAction);
+                // CameraCaptureBridge.RemoveCaptureAction(specifiedCamera, CaptureAction);
                 specifiedCamera = null;
                 CoreUtils.Destroy(blitMaterial);
                 blitMaterial = null;
