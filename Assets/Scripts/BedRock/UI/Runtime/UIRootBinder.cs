@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BedRock.UI.Runtime
+namespace BedRockRuntime.UI
 {
     [DefaultExecutionOrder(-999)]
     public class UIRootBinder : MonoBehaviour

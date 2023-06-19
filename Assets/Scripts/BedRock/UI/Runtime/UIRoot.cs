@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BedRock.UI.Runtime
+namespace BedRockRuntime.UI
 {
     public class UIRoot
     {

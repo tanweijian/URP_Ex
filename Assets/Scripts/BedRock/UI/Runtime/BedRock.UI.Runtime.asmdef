@@ -1,0 +1,16 @@
+{
+    "name": "BedRock.UI.Runtime",
+    "rootNamespace": "BedRockRuntime.UI",
+    "references": [
+        "GUID:75fa1aa5e46d1314f8989853386c55a0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

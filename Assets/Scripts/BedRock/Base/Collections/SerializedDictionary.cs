@@ -1,7 +1,8 @@
 ﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
-namespace UnityEngine.UI
+namespace BedRockRuntime.Base
 {
     [Serializable]
     public class SerializedDictionary<Tkey, TValue> : Dictionary<Tkey, TValue>, ISerializationCallbackReceiver

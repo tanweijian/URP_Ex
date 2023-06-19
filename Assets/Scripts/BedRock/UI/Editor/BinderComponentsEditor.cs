@@ -7,7 +7,6 @@ namespace UnityEditor.UI
     {
         public override void OnInspectorGUI()
         {
-            
         }
     }
 }

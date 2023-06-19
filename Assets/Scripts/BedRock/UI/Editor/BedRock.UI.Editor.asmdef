@@ -1,8 +1,12 @@
 {
-    "name": "BedRock.UI.Runtime",
-    "rootNamespace": "BedRock.UI.Runtime",
-    "references": [],
-    "includePlatforms": [],
+    "name": "BedRock.UI.Editor",
+    "rootNamespace": "BedRockEditor.UI",
+    "references": [
+        "GUID:5e83966fc016a554293b2b7fc64f0bf4"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
