@@ -2,6 +2,7 @@
 
 namespace UnityEngine.UI
 {
+    [DisallowMultipleComponent]
     public class BinderComponents : MonoBehaviour
     {
         [SerializeField] private SerializedDictionary<string, Object> m_ReferenceObjects;

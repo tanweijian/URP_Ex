@@ -2,7 +2,9 @@
     "name": "BedRock.UI.Editor",
     "rootNamespace": "BedRockEditor.UI",
     "references": [
-        "GUID:5e83966fc016a554293b2b7fc64f0bf4"
+        "GUID:5e83966fc016a554293b2b7fc64f0bf4",
+        "GUID:343deaaf83e0cee4ca978e7df0b80d21",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab"
     ],
     "includePlatforms": [
         "Editor"
