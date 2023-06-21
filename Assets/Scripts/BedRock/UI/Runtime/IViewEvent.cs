@@ -2,9 +2,10 @@ namespace BedRockRuntime.UI
 {
     interface IViewEvent
     {
-        void OnViewLoad();
+        void OnLoadView();
         void OnShow();
+        void OnResume();
         void OnClose();
-        void OnViewRelease();
+        void OnFreeView();
     }
 }
