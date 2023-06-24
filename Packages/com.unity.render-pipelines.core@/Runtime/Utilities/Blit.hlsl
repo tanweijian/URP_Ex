@@ -111,7 +111,15 @@ float4 FragBlit(Varyings input, SamplerState s)
 #endif
 
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-    return SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, s, input.texcoord.xy, _BlitMipLevel);
+// extensions modify begin;
+    float4 color = SAMPLE_TEXTURE2D_X_LOD(_BlitTexture, s, input.texcoord.xy, _BlitMipLevel);
+#if defined(_LINEAR_TO_SRGB_CONVERSION)
+    color = LinearToSRGB(color);
+#elif defined(_SRGB_TO_LINEAR_CONVERSION)
+    color = SRGBToLinear(color);
+#endif
+    return color;
+// extensions modify end;
 }
 
 float4 FragNearest(Varyings input) : SV_Target

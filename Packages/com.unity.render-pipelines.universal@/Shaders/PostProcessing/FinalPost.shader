@@ -5,7 +5,9 @@ Shader "Hidden/Universal Render Pipeline/FinalPost"
         #pragma multi_compile_local_fragment _ _FXAA
         #pragma multi_compile_local_fragment _ _FILM_GRAIN
         #pragma multi_compile_local_fragment _ _DITHERING
-        #pragma multi_compile_local_fragment _ _LINEAR_TO_SRGB_CONVERSION
+// extensions modify begin;
+        #pragma multi_compile_local_fragment _ _LINEAR_TO_SRGB_CONVERSION _SRGB_TO_LINEAR_CONVERSION
+// extensions modify end;
         #pragma multi_compile_fragment _ DEBUG_DISPLAY
         #pragma multi_compile_fragment _ SCREEN_COORD_OVERRIDE
         #pragma multi_compile_local_fragment _ HDR_INPUT HDR_COLORSPACE_CONVERSION HDR_ENCODING HDR_COLORSPACE_CONVERSION_AND_ENCODING
@@ -95,6 +97,12 @@ Shader "Hidden/Universal Render Pipeline/FinalPost"
             {
                 color = LinearToSRGB(color);
             }
+// extensions modify begin;
+            #elif _SRGB_TO_LINEAR_CONVERSION
+            {
+                color = SRGBToLinear(color);
+            }
+// extensions modify end;
             #endif
 
             #if _DITHERING

@@ -116,7 +116,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "file:com.unity.render-pipelines.core",
+      "version": "file:com.unity.render-pipelines.core@",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
@@ -127,7 +127,7 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "file:com.unity.render-pipelines.universal",
+      "version": "file:com.unity.render-pipelines.universal@",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
@@ -152,7 +152,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "file:com.unity.shadergraph",
+      "version": "file:com.unity.shadergraph@",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
@@ -221,7 +221,7 @@
       }
     },
     "com.unity.ugui.extensions": {
-      "version": "file:com.unity.ugui.extensions",
+      "version": "file:com.unity.ugui.extensions@",
       "depth": 0,
       "source": "embedded",
       "dependencies": {

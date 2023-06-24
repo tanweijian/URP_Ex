@@ -24,11 +24,11 @@ namespace BedRockRuntime.Base
 
         public void OnAfterDeserialize()
         {
+            Clear();
             for (int i = 0; i < m_Keys.Count; i++)
             {
                 Add(m_Keys[i], m_Values[i]);
             }
-
             m_Keys.Clear();
             m_Values.Clear();
         }

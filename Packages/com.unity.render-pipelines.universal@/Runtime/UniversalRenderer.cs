@@ -1293,7 +1293,9 @@ namespace UnityEngine.Rendering.Universal
                 // Do FXAA or any other final post-processing effect that might need to run after AA.
                 if (applyFinalPostProcessing)
                 {
-                    finalPostProcessPass.SetupFinalPass(sourceForFinalPass, true, needsColorEncoding);
+// extensions modify begin;
+                    finalPostProcessPass.SetupFinalPass(sourceForFinalPass, !(m_mixGammaColorSpace && cameraData.requireSRGBToLinearConversion), needsColorEncoding);
+// extensions modify end;
                     EnqueuePass(finalPostProcessPass);
                 }
                 

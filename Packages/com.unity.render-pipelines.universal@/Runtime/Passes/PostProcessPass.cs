@@ -1409,8 +1409,20 @@ namespace UnityEngine.Rendering.Universal
             SetupGrain(ref cameraData, material);
             SetupDithering(ref cameraData, material);
 
-            if (RequireSRGBConversionBlitToBackBuffer(ref cameraData))
-                material.EnableKeyword(ShaderKeywordStrings.LinearToSRGBConversion);
+// extensions modify begin;
+            if (!m_UseSwapBuffer)
+            {
+                CoreUtils.SetKeyword(material, ShaderKeywordStrings.LinearToSRGBConversion, false);
+                CoreUtils.SetKeyword(material, ShaderKeywordStrings.SRGBToLinearConversion, true);
+            }
+            else
+            {
+                if (RequireSRGBConversionBlitToBackBuffer(ref cameraData))
+                {
+                    CoreUtils.SetKeyword(material, ShaderKeywordStrings.LinearToSRGBConversion, true);
+                }
+            }
+// extensions modify end;
 
             HDROutputUtils.Operation hdrOperations = HDROutputUtils.Operation.None;
             bool requireHDROutput = RequireHDROutput(ref cameraData);
