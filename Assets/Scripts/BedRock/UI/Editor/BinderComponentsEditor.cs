@@ -13,11 +13,12 @@ namespace UnityEditor.UI
         private SerializedProperty sp_ReferenceObjectKeys;
         private SerializedProperty sp_ReferenceObjectValues;
         private ReorderableList referenceObjectsList;
+        private int bindIndex;
         private int focusedIndex;
         
         private BinderComponents binderComponents;
 
-        private Dictionary<string, Component> dragedTargetComponents = new Dictionary<string, Component>();
+        private Dictionary<string, Object> dragedTargetComponents = new Dictionary<string, Object>();
 
         private void OnEnable()
         {
@@ -43,6 +44,7 @@ namespace UnityEditor.UI
         {
             DrawDragRect();
             EditorGUILayout.Space(10f);
+            referenceObjectsList.headerHeight = EditorGUIUtility.singleLineHeight * 1.4f;
             referenceObjectsList.displayRemove = referenceObjectsList.count > 0;
             referenceObjectsList.DoLayoutList();
             serializedObject.ApplyModifiedProperties();
@@ -112,42 +114,39 @@ namespace UnityEditor.UI
                             return;
                         }
 
-                        var components = ListPool<Component>.Get();
-                        gameObject.GetComponents(typeof(Component), components);
-                        dragedTargetComponents.Clear();
-                        foreach (Component component in components)
-                        {
-                            string fullName = component.GetType().FullName;
-                            if (fullName != null)
-                            {
-                                dragedTargetComponents.Add(fullName, component);
-                            }
-                        }
-
-                        ListPool<Component>.Release(components);
+                        bindIndex = -1;
+                        GetTargetComponents(gameObject, dragedTargetComponents);
                     }
                 }
             }
         }
 
-        private void AddReferenceObject(Component component)
+        private void AddReferenceObject(Object component)
         {
-            string key = component.gameObject.name;
-            int arraySize = sp_ReferenceObjectKeys.arraySize;
-            for (int i = 0; i < sp_ReferenceObjectKeys.arraySize; i++)
+            if (bindIndex == -1)
             {
-                if (sp_ReferenceObjectKeys.GetArrayElementAtIndex(i).stringValue == key)
+                string key = component.name;
+                int arraySize = sp_ReferenceObjectKeys.arraySize;
+                for (int i = 0; i < sp_ReferenceObjectKeys.arraySize; i++)
                 {
-                    key += component.GetInstanceID();
-                    break;
+                    if (sp_ReferenceObjectKeys.GetArrayElementAtIndex(i).stringValue == key)
+                    {
+                        key += component.GetInstanceID();
+                        break;
+                    }
                 }
+                sp_ReferenceObjectKeys.InsertArrayElementAtIndex(arraySize);
+                SerializedProperty newKey = sp_ReferenceObjectKeys.GetArrayElementAtIndex(arraySize);
+                newKey.stringValue = key;
+                sp_ReferenceObjectValues.InsertArrayElementAtIndex(arraySize);
+                SerializedProperty newValue = sp_ReferenceObjectValues.GetArrayElementAtIndex(arraySize);
+                newValue.objectReferenceValue = component;
             }
-            sp_ReferenceObjectKeys.InsertArrayElementAtIndex(arraySize);
-            SerializedProperty newKey = sp_ReferenceObjectKeys.GetArrayElementAtIndex(arraySize);
-            newKey.stringValue = key;
-            sp_ReferenceObjectValues.InsertArrayElementAtIndex(arraySize);
-            SerializedProperty newValue = sp_ReferenceObjectValues.GetArrayElementAtIndex(arraySize);
-            newValue.objectReferenceValue = component;
+            else if (focusedIndex == bindIndex)
+            {
+                SerializedProperty value = sp_ReferenceObjectValues.GetArrayElementAtIndex(bindIndex);
+                value.objectReferenceValue = component;
+            }
         }
 
         private void OnDrawHeaderCallback(Rect rect)
@@ -161,21 +160,62 @@ namespace UnityEditor.UI
             {
                 focusedIndex = index;
             }
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            rect.width = 30f;
+
+            float width = rect.width;
+            const float keyLabelWidth = 30f;
+            const float valueLabelWidth = 40f;
+            const float spacingWidth = 20f;
+            const float buttonWidth = 60f;
+            float filedWidth = Mathf.Clamp((width - keyLabelWidth - spacingWidth * 2 - valueLabelWidth - buttonWidth) / 2, 5, 180);
+            
+            rect.height = EditorGUIUtility.singleLineHeight * 1.2f;
+            EditorGUI.HelpBox(rect, "", MessageType.None);
+            rect.height = EditorGUIUtility.singleLineHeight;
+            rect.y += EditorGUIUtility.singleLineHeight * 0.1f;
+            rect.x += 5f;
+            rect.width = keyLabelWidth;
             EditorGUI.LabelField(rect, "key:", EditorStyles.boldLabel);
-            rect.x += 30f;
-            rect.width = 200f;
+            rect.x += keyLabelWidth;
+            rect.width = filedWidth;
             string key = EditorGUI.TextField(rect, sp_ReferenceObjectKeys.GetArrayElementAtIndex(index).stringValue);
-            rect.x += 250f;
-            rect.width = 50f;
+            for (int i = 0; i < sp_ReferenceObjectKeys.arraySize; i++)
+            {
+                if (i == index || sp_ReferenceObjectKeys.GetArrayElementAtIndex(i).stringValue != key)
+                {
+                    continue;
+                }
+                key = sp_ReferenceObjectKeys.GetArrayElementAtIndex(index).stringValue;
+                break;
+            }
+            sp_ReferenceObjectKeys.GetArrayElementAtIndex(index).stringValue = key;
+            rect.x += filedWidth + spacingWidth;
+            rect.width = valueLabelWidth;
             EditorGUI.LabelField(rect, "value:", EditorStyles.boldLabel);
-            rect.x += 50f;
-            rect.width = 200f;
+            rect.x += valueLabelWidth;
+            rect.width = filedWidth;
             EditorGUI.BeginDisabledGroup(true);
             EditorGUI.PropertyField(rect, sp_ReferenceObjectValues.GetArrayElementAtIndex(index), GUIContent.none);
             EditorGUI.EndDisabledGroup();
-            EditorGUILayout.EndVertical();
+            if (isFocused)
+            {
+                rect.x = Mathf.Max(filedWidth + 10f + rect.x, width - buttonWidth + 20f);
+                rect.width = buttonWidth;
+                if (GUI.Button(rect,"ReBind"))
+                {
+                    bindIndex = index;
+                    SerializedProperty objectReferenceValue = sp_ReferenceObjectValues.GetArrayElementAtIndex(bindIndex);
+                    GameObject referenced = objectReferenceValue.objectReferenceValue as GameObject;
+                    if (referenced == null)
+                    {
+                        Component component = objectReferenceValue.objectReferenceValue as Component;
+                        if (component != null)
+                        {
+                            referenced = component.gameObject;
+                        }
+                    }
+                    GetTargetComponents(referenced, dragedTargetComponents);
+                }
+            }
         }
 
         private void OnRemoveCallback(ReorderableList list)
@@ -187,6 +227,31 @@ namespace UnityEditor.UI
         private void OnDrawNoneElementCallback(Rect rect)
         {
             EditorGUI.LabelField(rect, "No Reference Object", EditorStyles.boldLabel);
+        }
+
+        private void GetTargetComponents(GameObject gameObject, IDictionary<string, Object> saved)
+        {
+            saved.Clear();
+            if (gameObject == null)
+            {
+                return;
+            }
+            var components = ListPool<Component>.Get();
+            gameObject.GetComponents(typeof(Component), components);
+            string key = gameObject.GetType().FullName;
+            if (key != null)
+            {
+                saved.Add(key, gameObject);
+                foreach (Component component in components)
+                {
+                    string fullName = component.GetType().FullName;
+                    if (fullName != null)
+                    {
+                        saved.Add(fullName, component);
+                    }
+                }
+            }
+            ListPool<Component>.Release(components);
         }
 
         private bool IsChildOfTarget(Transform transform)
