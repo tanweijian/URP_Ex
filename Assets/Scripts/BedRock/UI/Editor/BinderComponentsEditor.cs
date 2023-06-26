@@ -18,7 +18,7 @@ namespace UnityEditor.UI
         
         private BinderComponents binderComponents;
 
-        private Dictionary<string, Object> dragedTargetComponents = new Dictionary<string, Object>();
+        private readonly Dictionary<string, Object> dragedTargetComponents = new Dictionary<string, Object>();
 
         private void OnEnable()
         {
@@ -84,7 +84,17 @@ namespace UnityEditor.UI
             else
             {
                 Rect dragRect = EditorGUILayout.GetControlRect(GUILayout.Height(100));
-                EditorGUI.LabelField(dragRect, "Drag Reference Object Here", EditorStyles.centeredGreyMiniLabel);
+                GUIStyle style = new()
+                {
+                    alignment = TextAnchor.MiddleCenter,
+                    fontSize = 20,
+                    fontStyle = FontStyle.Bold,
+                    normal =
+                    {
+                        textColor = Color.gray
+                    }
+                };
+                EditorGUI.LabelField(dragRect, "Drag Reference Object Here", style);
                 EditorGUI.HelpBox(dragRect, "", MessageType.None);
                 Event current = Event.current;
                 if (dragRect.Contains(current.mousePosition))
@@ -123,6 +133,15 @@ namespace UnityEditor.UI
 
         private void AddReferenceObject(Object component)
         {
+            for (int i = 0; i < sp_ReferenceObjectValues.arraySize; i++)
+            {
+                if (sp_ReferenceObjectValues.GetArrayElementAtIndex(i).objectReferenceValue == component)
+                {
+                    SerializedProperty key = sp_ReferenceObjectKeys.GetArrayElementAtIndex(i);
+                    EditorUtility.DisplayDialog("BinderComponents", $"Duplicate bind Referene Object, exist [{key.stringValue}]","Understand");
+                    return;
+                }
+            }
             if (bindIndex == -1)
             {
                 string key = component.name;
@@ -178,16 +197,19 @@ namespace UnityEditor.UI
             rect.x += keyLabelWidth;
             rect.width = filedWidth;
             string key = EditorGUI.TextField(rect, sp_ReferenceObjectKeys.GetArrayElementAtIndex(index).stringValue);
-            for (int i = 0; i < sp_ReferenceObjectKeys.arraySize; i++)
+            if (!string.IsNullOrEmpty(key))
             {
-                if (i == index || sp_ReferenceObjectKeys.GetArrayElementAtIndex(i).stringValue != key)
+                for (int i = 0; i < sp_ReferenceObjectKeys.arraySize; i++)
                 {
-                    continue;
+                    if (i == index || sp_ReferenceObjectKeys.GetArrayElementAtIndex(i).stringValue != key)
+                    {
+                        continue;
+                    }
+                    key = sp_ReferenceObjectKeys.GetArrayElementAtIndex(index).stringValue;
+                    break;
                 }
-                key = sp_ReferenceObjectKeys.GetArrayElementAtIndex(index).stringValue;
-                break;
+                sp_ReferenceObjectKeys.GetArrayElementAtIndex(index).stringValue = key;
             }
-            sp_ReferenceObjectKeys.GetArrayElementAtIndex(index).stringValue = key;
             rect.x += filedWidth + spacingWidth;
             rect.width = valueLabelWidth;
             EditorGUI.LabelField(rect, "value:", EditorStyles.boldLabel);
