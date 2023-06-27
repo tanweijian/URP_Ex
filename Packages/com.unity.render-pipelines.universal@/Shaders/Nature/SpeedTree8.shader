@@ -19,6 +19,9 @@ Shader "Universal Render Pipeline/Nature/SpeedTree8"
         _SubsurfaceTex ("Subsurface (RGB)", 2D) = "white" {}
         _SubsurfaceColor ("Subsurface Color", Color) = (1,1,1,1)
         _SubsurfaceIndirect ("Subsurface Indirect", Range(0.0, 1.0)) = 0.25
+        
+        [Toggle(EFFECT_BAKE_SHADOWMASK)]
+        _BakeShadowmask ("Bake Shadowmask", 2D) = "black" {}
 
         [Toggle(EFFECT_BILLBOARD)] _BillboardKwToggle("Billboard", Float) = 0
         _BillboardShadowFade ("Billboard Shadow Fade", Range(0.0, 1.0)) = 0.5
@@ -78,6 +81,7 @@ Shader "Universal Render Pipeline/Nature/SpeedTree8"
             #pragma shader_feature_local EFFECT_SUBSURFACE
             #pragma shader_feature_local EFFECT_BUMP
             #pragma shader_feature_local EFFECT_EXTRA_TEX
+            #pragma shader_feature_local EFFECT_BAKE_SHADOWMASK
 
             #define ENABLE_WIND
             #define EFFECT_BACKSIDE_NORMALS

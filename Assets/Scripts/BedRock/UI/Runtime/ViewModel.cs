@@ -1,6 +1,6 @@
 ﻿namespace BedRockRuntime.UI
 {
-    public abstract class AViewModel
+    public class ViewModel
     {
         
     }

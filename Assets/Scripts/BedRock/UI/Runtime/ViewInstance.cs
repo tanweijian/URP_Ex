@@ -1,6 +1,6 @@
 ﻿namespace BedRockRuntime.UI
 {
-    public abstract class AViewInstance<VM, VC> : IViewEvent where VM : AViewModel where VC : AViewController
+    public class ViewInstance : IViewEvent
     {
         void IViewEvent.OnLoadView()
         {
@@ -27,9 +27,15 @@
             OnFreeView();
         }
 
-        private VM vm;
-        private VC vc;
+        protected ViewModel vm;
+        protected ViewController vc;
 
+        protected void Register<VM, VC>() where VM : ViewModel, new() where VC : ViewController, new()
+        {
+            vm = new VM();
+            vc = new VC();
+        }
+        
         protected virtual void OnLoadView()
         {
         }

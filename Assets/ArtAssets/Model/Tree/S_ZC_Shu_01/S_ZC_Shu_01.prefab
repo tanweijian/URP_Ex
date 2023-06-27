@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2252166767658946800}
   - component: {fileID: 5463009298879711290}
   - component: {fileID: 7000428033511925408}
-  - component: {fileID: 5422792301900854432}
   m_Layer: 0
   m_Name: S_ZC_Shu_01_LOD1
   m_TagString: Untagged
@@ -85,15 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!193 &5422792301900854432
-Tree:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2470977711132989043}
-  m_SpeedTreeWindAsset: {fileID: 22800000, guid: fa7e54410519aeb4293c6cfd0919d735, type: 3}
-  m_TreeData: {fileID: 0}
 --- !u!1 &3601412986983299187
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +95,6 @@ GameObject:
   - component: {fileID: 7328247223014539141}
   - component: {fileID: 1782409586294681636}
   - component: {fileID: 4218556882336874984}
-  - component: {fileID: 9068385710487874350}
   m_Layer: 0
   m_Name: S_ZC_Shu_01_LOD2
   m_TagString: Untagged
@@ -179,15 +168,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!193 &9068385710487874350
-Tree:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3601412986983299187}
-  m_SpeedTreeWindAsset: {fileID: 22800000, guid: fa7e54410519aeb4293c6cfd0919d735, type: 3}
-  m_TreeData: {fileID: 0}
 --- !u!1 &4501512060406733040
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +179,6 @@ GameObject:
   - component: {fileID: 4439640853522047521}
   - component: {fileID: 1426736465969639677}
   - component: {fileID: 7089147563251281002}
-  - component: {fileID: 4670998629606173553}
   m_Layer: 0
   m_Name: S_ZC_Shu_01_LOD0
   m_TagString: Untagged
@@ -214,7 +193,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4501512060406733040}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -268,20 +247,11 @@ MeshRenderer:
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 111300000, guid: 948f64832b212cd4eb6fd067f9ba75bc, type: 2}
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!193 &4670998629606173553
-Tree:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4501512060406733040}
-  m_SpeedTreeWindAsset: {fileID: 22800000, guid: fa7e54410519aeb4293c6cfd0919d735, type: 3}
-  m_TreeData: {fileID: 0}
 --- !u!1 &8307974464974844235
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +285,7 @@ Transform:
   - {fileID: 2252166767658946800}
   - {fileID: 7328247223014539141}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &8382279833878038361
 LODGroup:
