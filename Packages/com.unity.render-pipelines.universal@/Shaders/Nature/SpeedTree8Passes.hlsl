@@ -24,7 +24,9 @@ struct SpeedTreeVertexInput
 
 struct SpeedTreeVertexOutput
 {
-    half2 uv                        : TEXCOORD0;
+// extensions modify begin;
+    float4 uv                       : TEXCOORD0;
+// extensions modify end;
     half4 color                     : TEXCOORD1;
 
     half4 fogFactorAndVertexLight   : TEXCOORD2;    // x: fogFactor, yzw: vertex light
@@ -228,8 +230,9 @@ SpeedTreeVertexOutput SpeedTree8Vert(SpeedTreeVertexInput input)
 
     // handle speedtree wind and lod
     InitializeData(input, unity_LODFade.x);
-
-    output.uv = input.texcoord.xy;
+// extensions modify begin;
+    output.uv = float4(input.texcoord.xy, input.texcoord1.xy);
+// extensions modify end;
     output.color = input.color;
 
     // color already contains (ao, ao, ao, blend)
