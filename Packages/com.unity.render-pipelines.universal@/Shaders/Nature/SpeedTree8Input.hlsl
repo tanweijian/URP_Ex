@@ -53,6 +53,12 @@ float4 _MainTex_MipInfo;
     half _SubsurfaceIndirect;
 #endif
 
+// extensions modify begin; 
+#ifdef EFFECT_INCREASE_SHADOW
+    sampler2D _ShadowmaskTex;
+#endif
+// extensions modify end;
+
 // Shadow Casting Light geometric parameters. These variables are used when applying the shadow Normal Bias and are set by UnityEngine.Rendering.Universal.ShadowUtils.SetupShadowCasterConstantBuffer in com.unity.render-pipelines.universal/Runtime/ShadowUtils.cs
 // For Directional lights, _LightDirection is used when applying shadow Normal Bias.
 // For Spot lights and Point lights, _LightPosition is used to compute the actual light direction because it is different at each shadow caster geometry vertex.

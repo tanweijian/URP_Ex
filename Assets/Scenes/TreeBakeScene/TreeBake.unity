@@ -431,6 +431,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4439640853522047521, guid: 20599e22c93686e4799742194ba92110, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439640853522047521, guid: 20599e22c93686e4799742194ba92110, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4439640853522047521, guid: 20599e22c93686e4799742194ba92110, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501512060406733040, guid: 20599e22c93686e4799742194ba92110, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8307974464974844235, guid: 20599e22c93686e4799742194ba92110, type: 3}
       propertyPath: m_Name
       value: S_ZC_Shu_01

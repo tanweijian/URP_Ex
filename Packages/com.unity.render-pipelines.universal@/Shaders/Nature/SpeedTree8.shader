@@ -21,8 +21,8 @@ Shader "Universal Render Pipeline/Nature/SpeedTree8"
         _SubsurfaceIndirect ("Subsurface Indirect", Range(0.0, 1.0)) = 0.25
         
 // extensions modify begin;        
-        [Toggle(EFFECT_BAKE_SHADOWMASK)]
-        _BakeShadowmask ("Bake Shadowmask", 2D) = "black" {}
+        [Toggle(EFFECT_INCREASE_SHADOW)] _IncreaseShadowKwToggle("Increase Shadow", Float) = 0
+        _ShadowmaskTex ("Shadowmask", 2D) = "black" {}
 // extensions modify end;
 
         [Toggle(EFFECT_BILLBOARD)] _BillboardKwToggle("Billboard", Float) = 0
@@ -84,7 +84,7 @@ Shader "Universal Render Pipeline/Nature/SpeedTree8"
             #pragma shader_feature_local EFFECT_BUMP
             #pragma shader_feature_local EFFECT_EXTRA_TEX
 // extensions modify begin;
-            #pragma shader_feature_local EFFECT_BAKE_SHADOWMASK
+            #pragma shader_feature_local EFFECT_INCREASE_SHADOW
 // extensions modify end;
 
             #define ENABLE_WIND

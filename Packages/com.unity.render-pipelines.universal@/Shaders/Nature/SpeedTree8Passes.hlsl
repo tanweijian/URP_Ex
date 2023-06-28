@@ -444,7 +444,7 @@ half4 SpeedTree8Frag(SpeedTreeFragmentInput input) : SV_Target
     float4 shadowCoord = TransformWorldToShadowCoord(inputData.positionWS);
     half realtimeShadow = MainLightRealtimeShadow(shadowCoord);
     float3 tintedSubsurface = tex2D(_SubsurfaceTex, uv).rgb * _SubsurfaceColor.rgb;
-        float3 directSubsurface = tintedSubsurface.rgb * mainLight.color.rgb * fSubsurface * realtimeShadow;
+    float3 directSubsurface = tintedSubsurface.rgb * mainLight.color.rgb * fSubsurface * realtimeShadow;
     float3 indirectSubsurface = tintedSubsurface.rgb * inputData.bakedGI.rgb * _SubsurfaceIndirect;
     emission = directSubsurface + indirectSubsurface;
     #endif
@@ -478,6 +478,12 @@ half4 SpeedTree8Frag(SpeedTreeFragmentInput input) : SV_Target
     inputData.uv = uv;
 #endif
 
+#ifdef EFFECT_INCREASE_SHADOW
+    half2 maskUV = input.interpolated.uv.zw;
+    return half4(tex2D(_ShadowmaskTex, maskUV).r, 0, 0, 1);
+    // return half4(realtimeShadow, 0, 0, 1);
+#endif
+    
     half4 color = UniversalFragmentPBR(inputData, surfaceData);
 
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
