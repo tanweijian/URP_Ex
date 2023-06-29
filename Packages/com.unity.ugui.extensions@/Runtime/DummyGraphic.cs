@@ -1,5 +1,6 @@
 namespace UnityEngine.UI
 {
+    [RequireComponent(typeof(CanvasRenderer))]
     public class DummyGraphic : Graphic
     {
         protected DummyGraphic()

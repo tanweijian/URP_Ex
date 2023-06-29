@@ -11,7 +11,7 @@ public class TreeShadowmaskBakerEditor : EditorWindow
     [MenuItem("tanweijian/bake tree shadowmask")]
     public static void OpenWindow()
     {
-        var win = GetWindow<TreeShadowmaskBakerEditor>("烘焙树阴影");
+        TreeShadowmaskBakerEditor win = GetWindow<TreeShadowmaskBakerEditor>("烘焙树阴影");
         win.showInit();
     }
 
