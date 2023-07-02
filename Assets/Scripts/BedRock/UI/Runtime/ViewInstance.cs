@@ -34,7 +34,9 @@
 
         protected ViewModel vm;
         protected ViewController vc;
-        
+
+        public bool IsOpen { private set; get; }
+
         private void RegisterVMC(ViewModel m, ViewController c)
         {
             vm = m;
