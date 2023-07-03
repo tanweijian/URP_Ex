@@ -35,7 +35,7 @@
         protected ViewModel vm;
         protected ViewController vc;
         
-        public ViewMeta Meta { private set; get; }
+        public ViewMetaData MetaData { private set; get; }
         
         public bool IsOpen { private set; get; }
 

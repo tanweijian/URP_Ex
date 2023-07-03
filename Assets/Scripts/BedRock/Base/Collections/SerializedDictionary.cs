@@ -10,7 +10,7 @@ namespace BedRockRuntime.Base
         [SerializeField] private List<Tkey> m_Keys = new List<Tkey>();
         [SerializeField] private List<TValue> m_Values = new List<TValue>();
 
-        public void OnBeforeSerialize()
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
             m_Keys.Clear();
             m_Values.Clear();
@@ -22,7 +22,7 @@ namespace BedRockRuntime.Base
             }
         }
 
-        public void OnAfterDeserialize()
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
             Clear();
             for (int i = 0; i < m_Keys.Count; i++)
