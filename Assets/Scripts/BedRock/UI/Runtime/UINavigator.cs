@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace BedRockRuntime.UI
 {
@@ -13,7 +11,6 @@ namespace BedRockRuntime.UI
             ViewInstance view = ViewManager.GetViewInstance<V>();
             if (!view.IsOpen)
             {
-                
             }
             if (view != null)
             {
@@ -24,11 +21,6 @@ namespace BedRockRuntime.UI
         
         public static void Open(ViewInstance view)
         {
-        }
-
-        private static ValueTask OpenAsync<V>() where V : ViewInstance
-        {
-            return new ValueTask();
         }
         
         public static void Close(ViewInstance view)

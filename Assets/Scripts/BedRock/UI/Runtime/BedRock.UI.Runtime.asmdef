@@ -2,7 +2,8 @@
     "name": "BedRock.UI.Runtime",
     "rootNamespace": "BedRockRuntime.UI",
     "references": [
-        "GUID:75fa1aa5e46d1314f8989853386c55a0"
+        "GUID:75fa1aa5e46d1314f8989853386c55a0",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -11,6 +12,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "",
+            "define": "UNITASK_ASYNC_SUPPORT"
+        }
+    ],
     "noEngineReferences": false
 }
