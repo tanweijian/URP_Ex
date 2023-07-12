@@ -9,7 +9,7 @@ namespace UnityEditor.Rendering.Universal
             public class Styles
             {
                 public static readonly GUIContent headerTr = EditorGUIUtility.TrTextContent("Extend");
-                public static readonly GUIContent ForceColorSpaceRenderTr = EditorGUIUtility.TrTextContent("Force Gamma Color Space");
+                public static readonly GUIContent RenderingColorSpaceGammaTr = EditorGUIUtility.TrTextContent("Rendering Color Space Gamma");
             }
         }
     }

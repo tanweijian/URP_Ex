@@ -333,7 +333,7 @@ namespace UnityEngine.Rendering.Universal
         [SerializeField] Vector4 m_ScreenCoordScaleBias;
         
 // extensions modify begin;
-        [SerializeField] bool m_ForceGammaColorSpace;
+        [SerializeField] bool m_RenderingColorSpaceGamma;
 // extensions modify end;
 
         [NonSerialized] Camera m_Camera;
@@ -761,7 +761,7 @@ namespace UnityEngine.Rendering.Universal
         }
 		
 // extensions modify begin;
-        public bool ForceGammaColorSpace => m_ForceGammaColorSpace;
+        public bool RenderingColorSpaceGamma => m_RenderingColorSpaceGamma;
 // extensions modify end;
 
         /// <inheritdoc/>

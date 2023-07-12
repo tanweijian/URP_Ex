@@ -44,7 +44,7 @@ namespace UnityEditor.Rendering.Universal
 		public SerializedProperty allowHDROutput { get; }
 		
 // extensions modify begin;
-        public SerializedProperty forceGammaColorSpace { get; }
+        public SerializedProperty renderingColorSpaceGamma { get; }
 // extensions modify end;
         
         public (Camera camera, UniversalRenderPipelineSerializedCamera serializedCamera) this[int index]
@@ -120,7 +120,7 @@ namespace UnityEditor.Rendering.Universal
 			allowHDROutput = serializedAdditionalDataObject.FindProperty("m_AllowHDROutput");
 
 // extensions modify begin;
-            forceGammaColorSpace = serializedAdditionalDataObject.FindProperty("m_ForceGammaColorSpace");
+            renderingColorSpaceGamma = serializedAdditionalDataObject.FindProperty("m_RenderingColorSpaceGamma");
 // extensions modify end;
         }
 

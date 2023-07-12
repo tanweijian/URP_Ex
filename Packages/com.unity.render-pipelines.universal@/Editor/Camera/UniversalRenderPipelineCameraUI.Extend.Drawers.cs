@@ -21,7 +21,7 @@ namespace UnityEditor.Rendering.Universal
 
             private static void DrawerForceGammaColorSpaceOption(UniversalRenderPipelineSerializedCamera p, Editor owner)
             {
-                EditorGUILayout.PropertyField(p.forceGammaColorSpace, Styles.ForceColorSpaceRenderTr);
+                EditorGUILayout.PropertyField(p.renderingColorSpaceGamma, Styles.RenderingColorSpaceGammaTr);
             }
         }
     }

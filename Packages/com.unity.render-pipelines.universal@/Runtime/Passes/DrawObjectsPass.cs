@@ -231,7 +231,7 @@ namespace UnityEngine.Rendering.Universal.Internal
                 // Clean up
                 CoreUtils.SetKeyword(cmd, ShaderKeywordStrings.WriteRenderingLayers, false);
 // extensions modify begin;
-                CoreUtils.SetKeyword(cmd, ShaderKeywordStrings.RenderColorSpaceGamma, false);
+                CoreUtils.SetKeyword(cmd, ShaderKeywordStrings.RenderingColorSpaceGamma, false);
 // extensions modify end;
                 context.ExecuteCommandBuffer(cmd);
                 cmd.Clear();
@@ -344,7 +344,7 @@ namespace UnityEngine.Rendering.Universal.Internal
 
         protected override void OnExecute(CommandBuffer cmd)
         {
-            CoreUtils.SetKeyword(cmd, ShaderKeywordStrings.RenderColorSpaceGamma, true);
+            CoreUtils.SetKeyword(cmd, ShaderKeywordStrings.RenderingColorSpaceGamma, true);
         }
     }
 // extensions modify end;

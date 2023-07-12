@@ -723,7 +723,7 @@ namespace UnityEngine.Rendering.Universal
 // extensions modify begin;
                         if (requiresFirstStack)
                         {
-                            baseCameraFinalRequiredSrgbConversion = data.ForceGammaColorSpace;
+                            baseCameraFinalRequiredSrgbConversion = data.RenderingColorSpaceGamma;
                             requiresFirstStack = false;
                         }
 // extensions modify end;                        
@@ -875,13 +875,13 @@ namespace UnityEngine.Rendering.Universal
                             {
                                 Camera nextCamera = cameraStack[i + 1];
                                 nextCamera.TryGetComponent(out UniversalAdditionalCameraData nextAdditionalCameraData);
-                                overlayCameraData.requireLinearToSRGBConversion = !currAdditionalCameraData.ForceGammaColorSpace && nextAdditionalCameraData.ForceGammaColorSpace;
+                                overlayCameraData.requireLinearToSRGBConversion = !currAdditionalCameraData.RenderingColorSpaceGamma && nextAdditionalCameraData.RenderingColorSpaceGamma;
                                 overlayCameraData.requireSRGBToLinearConversion = false;
                             }
                             else
                             {
                                 overlayCameraData.requireLinearToSRGBConversion = false;
-                                overlayCameraData.requireSRGBToLinearConversion = currAdditionalCameraData.ForceGammaColorSpace && linearColorSpace;
+                                overlayCameraData.requireSRGBToLinearConversion = currAdditionalCameraData.RenderingColorSpaceGamma && linearColorSpace;
                             }
 // extensions modify end;
                             InitializeAdditionalCameraData(currCamera, currAdditionalCameraData, lastCamera, ref overlayCameraData);
@@ -1229,7 +1229,7 @@ namespace UnityEngine.Rendering.Universal
                 cameraData.screenSizeOverride = additionalCameraData.screenSizeOverride;
                 cameraData.screenCoordScaleBias = additionalCameraData.screenCoordScaleBias;
 // extensions modify begin;
-                cameraData.forceGammaColorSpace = additionalCameraData.ForceGammaColorSpace;
+                cameraData.forceGammaColorSpace = additionalCameraData.RenderingColorSpaceGamma;
 // extensions modify end;
             }
             else

@@ -1233,7 +1233,8 @@ namespace UnityEngine.Rendering.Universal
         public const string SRGBToLinearConversion = "_SRGB_TO_LINEAR_CONVERSION";
 
         /// <summary> Keyword used for gamma color space rendering.</summary>
-        public const string RenderColorSpaceGamma = "_RENDER_COLORSPACE_GAMMA";
+        /// UNITY_COLORSPACE_GAMMA
+        public const string RenderingColorSpaceGamma = "RENDERING_COLORSPACE_GAMMA";
 // extensions modify end;
     }
 

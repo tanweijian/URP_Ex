@@ -56,7 +56,7 @@ Shader "UI/DefaultEx"
             #include "UICommon.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            #pragma multi_compile _ _RENDER_COLORSPACE_GAMMA
+            #pragma multi_compile _ RENDERING_COLORSPACE_GAMMA
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
         
@@ -107,7 +107,7 @@ Shader "UI/DefaultEx"
                 output.uv.xy = TRANSFORM_TEX(input.uv.xy, _MainTex);
                 output.mask = float4(input.positionOS.xy * 2 - clampedRect.xy - clampedRect.zw, 0.25 / (0.25 * half2(_UIMaskSoftnessX, _UIMaskSoftnessY) + abs(pixelSize.xy)));
 
-            #if defined(_RENDER_COLORSPACE_GAMMA)
+            #if defined(RENDERING_COLORSPACE_GAMMA)
                 if (!_UIVertexColorAlwaysGammaSpace)
                 {
                     input.color.rgb = UILinearToGamma(input.color.rgb);
@@ -148,7 +148,7 @@ Shader "UI/DefaultEx"
                 clip (color.a - 0.001);
             #endif
 
-            #if defined(_RENDER_COLORSPACE_GAMMA)
+            #if defined(RENDERING_COLORSPACE_GAMMA)
                 float3 luminance = half3(0.0396819152, 0.458021790, 0.00609653955);
             #else
                 float3 luminance = half3(0.2126729000, 0.715152200, 0.07217500000);
