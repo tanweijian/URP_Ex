@@ -1283,7 +1283,7 @@ namespace UnityEngine.Rendering.Universal
                     // if resolving to screen we need to be able to perform sRGBConversion in post-processing if necessary
                     bool doSRGBEncoding = resolvePostProcessingToCameraTarget && needsColorEncoding;
 // extensions modify begin;                  
-                    postProcessPass.Setup(cameraTargetDescriptor, m_ActiveCameraColorAttachment, resolvePostProcessingToCameraTarget, m_ActiveCameraDepthAttachment, colorGradingLut, m_MotionVectorColor, m_GammaColorTexture, applyFinalPostProcessing, doSRGBEncoding, m_mixGammaColorSpace);
+                    postProcessPass.Setup(cameraTargetDescriptor, m_ActiveCameraColorAttachment, resolvePostProcessingToCameraTarget, m_ActiveCameraDepthAttachment, colorGradingLut, m_MotionVectorColor, applyFinalPostProcessing, doSRGBEncoding, m_GammaColorTexture, m_mixGammaColorSpace);
 // extensions modify end;
                     EnqueuePass(postProcessPass);
                 }
@@ -1349,7 +1349,7 @@ namespace UnityEngine.Rendering.Universal
             else if (applyPostProcessing)
             {
 // extensions modify begin;
-                postProcessPass.Setup(cameraTargetDescriptor, m_ActiveCameraColorAttachment, false, m_ActiveCameraDepthAttachment, colorGradingLut, m_MotionVectorColor, m_GammaColorTexture, false, false, m_mixGammaColorSpace);
+                postProcessPass.Setup(cameraTargetDescriptor, m_ActiveCameraColorAttachment, false, m_ActiveCameraDepthAttachment, colorGradingLut, m_MotionVectorColor, false, false, m_GammaColorTexture, m_mixGammaColorSpace);
 // extensions modify end;
                 EnqueuePass(postProcessPass);
             }

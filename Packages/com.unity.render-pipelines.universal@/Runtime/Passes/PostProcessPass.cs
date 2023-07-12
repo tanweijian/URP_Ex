@@ -228,7 +228,7 @@ namespace UnityEngine.Rendering.Universal
         /// <param name="hasFinalPass"></param>
         /// <param name="enableColorEncoding"></param>
 // extensions modify begin;
-        public void Setup(in RenderTextureDescriptor baseDescriptor, in RTHandle source, bool resolveToScreen, in RTHandle depth, in RTHandle internalLut, in RTHandle motionVectors, in RTHandle gammaDestination, bool hasFinalPass, bool enableColorEncoding, bool mixGammaColorSpace)
+        public void Setup(in RenderTextureDescriptor baseDescriptor, in RTHandle source, bool resolveToScreen, in RTHandle depth, in RTHandle internalLut, in RTHandle motionVectors, bool hasFinalPass, bool enableColorEncoding, in RTHandle gammaDestination, bool mixGammaColorSpace)
 // extensions modify end;
         {
             m_Descriptor = baseDescriptor;
@@ -260,7 +260,9 @@ namespace UnityEngine.Rendering.Universal
         /// <param name="internalLut"></param>
         /// <param name="hasFinalPass"></param>
         /// <param name="enableColorEncoding"></param>
-        public void Setup(in RenderTextureDescriptor baseDescriptor, in RTHandle source, RTHandle destination, in RTHandle depth, in RTHandle internalLut, bool hasFinalPass, bool enableColorEncoding)
+// extensions modify begin;
+        public void Setup(in RenderTextureDescriptor baseDescriptor, in RTHandle source, RTHandle destination, in RTHandle depth, in RTHandle internalLut, bool hasFinalPass, bool enableColorEncoding, in RTHandle gammaDestination, bool mixGammaColorSpace)
+// extensions modify end;
         {
             m_Descriptor = baseDescriptor;
             m_Descriptor.useMipMap = false;
@@ -273,6 +275,10 @@ namespace UnityEngine.Rendering.Universal
             m_HasFinalPass = hasFinalPass;
             m_EnableColorEncodingIfNeeded = enableColorEncoding;
             m_UseSwapBuffer = false;
+// extensions modify begin;
+            m_MixGammaColorSpace = mixGammaColorSpace;
+            m_GammaDestination = gammaDestination;
+// extensions modify end;
         }
 
         /// <summary>

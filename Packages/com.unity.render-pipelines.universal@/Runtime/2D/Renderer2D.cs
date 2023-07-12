@@ -283,7 +283,7 @@ namespace UnityEngine.Rendering.Universal
             {
                 var desc = PostProcessPass.GetCompatibleDescriptor(cameraTargetDescriptor, cameraTargetDescriptor.width, cameraTargetDescriptor.height, cameraTargetDescriptor.graphicsFormat, DepthBits.None);
                 RenderingUtils.ReAllocateIfNeeded(ref m_PostProcessPasses.m_AfterPostProcessColor, desc, FilterMode.Point, TextureWrapMode.Clamp, name: "_AfterPostProcessTexture");
-
+// extensions modify begin;
                 postProcessPass.Setup(
                     cameraTargetDescriptor,
                     colorTargetHandle,
@@ -291,8 +291,9 @@ namespace UnityEngine.Rendering.Universal
                     depthTargetHandle,
                     colorGradingLutHandle,
                     requireFinalPostProcessPass,
-                    afterPostProcessColorHandle.nameID == k_CameraTarget.nameID && needsColorEncoding);
-
+                    afterPostProcessColorHandle.nameID == k_CameraTarget.nameID && needsColorEncoding,
+                    null, false);
+// extensions modify end;
                 EnqueuePass(postProcessPass);
                 colorTargetHandle = afterPostProcessColorHandle;
             }
