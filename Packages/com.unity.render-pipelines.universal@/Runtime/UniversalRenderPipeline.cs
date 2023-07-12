@@ -825,6 +825,7 @@ namespace UnityEngine.Rendering.Universal
 // extensions modify begin;                
                 baseCameraData.requireLinearToSRGBConversion = isStackedRendering && baseCameraFinalRequiredSrgbConversion && QualitySettings.activeColorSpace == ColorSpace.Linear;
                 baseCameraData.requireSRGBToLinearConversion = false;
+                baseCameraData.captureActions = CameraCaptureBridge.GetCaptureActions(baseCamera);
 // extensions modify end;    
                 RenderSingleCamera(context, ref baseCameraData, anyPostProcessingEnabled);
                 using (new ProfilingScope(null, Profiling.Pipeline.endCameraRendering))
@@ -852,7 +853,9 @@ namespace UnityEngine.Rendering.Universal
                             CameraData overlayCameraData = baseCameraData;
                             overlayCameraData.camera = currCamera;
                             overlayCameraData.baseCamera = baseCamera;
-
+// extensions modify begin;
+                            overlayCameraData.captureActions = CameraCaptureBridge.GetCaptureActions(currCamera);
+// extensions modify end;
                             UpdateCameraStereoMatrices(currAdditionalCameraData.camera, xrPass);
 
                             using (new ProfilingScope(null, Profiling.Pipeline.beginCameraRendering))
