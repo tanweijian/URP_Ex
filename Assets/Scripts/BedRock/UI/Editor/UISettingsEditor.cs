@@ -45,28 +45,92 @@ namespace BedRockEditor.UI
         {
             if (treeView == null)
             {
-                EditorGUILayout.LabelField("can't find ui settings asset");
-                return;
-            }
-
-            EditorGUILayout.Space(5f);
-            using (new EditorGUILayout.HorizontalScope())
-            {
-                EditorGUILayout.LabelField($"Atlas Outpu Path: {atlasOutputPath.stringValue}");
-                if (GUILayout.Button("Select"))
+                EditorGUILayout.Space(5f);
+                using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    atlasOutputPath.stringValue = EditorUtility.OpenFolderPanel("Atlas Output Path","","");
+                    EditorGUILayout.Space(5f);
+                    UnityEngine.Object asset = EditorGUILayout.ObjectField(null, typeof(UISettingsAsset), false, GUILayout.Width(300));
+                    if (asset != null)
+                    {
+                        EditorPrefs.SetString(PrefsKey.UISettingsAseetPath, AssetDatabase.GetAssetPath(asset));
+                        OnEnable();
+                    }
+                    GUIStyle style = EditorStyles.centeredGreyMiniLabel;
+                    style.fontSize = 32;
+                    EditorGUILayout.LabelField("can't find ui settings asset", style, GUILayout.ExpandHeight(true));
                 }
             }
-
-            EditorGUILayout.Space(20f);
-            using (new EditorGUILayout.ScrollViewScope(Vector2.zero, false, false, GUILayout.Width(position.width),
-                       GUILayout.Height(position.height)))
+            else
             {
-                treeView.OnGUI(new Rect(0, 0, position.width, position.height));
-            }
+                EditorGUILayout.Space(10f);
+                using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
+                {
+                    GUIStyle style = new GUIStyle(EditorStyles.helpBox)
+                    {
+                        fontSize = 14
+                    };
+                    EditorGUILayout.LabelField($"  【Atlas Output Path】: {atlasOutputPath.stringValue}    ", style);
+                    style = new GUIStyle(GUI.skin.button)
+                    {
+                        fontSize = 14
+                    };
+                    GUILayout.Space(50f);
+                    if (GUILayout.Button("  Replace Atlas Output Path  ", style, GUILayout.Height(22f)))
+                    {
+                        string path = EditorUtility.OpenFolderPanel("Atlas Output Path", "", "");
+                        if (!string.IsNullOrEmpty(path))
+                        {
+                            atlasOutputPath.stringValue = path.Replace(Application.dataPath, "Assets");
+                        }
+                    }
+                    GUILayout.Space(10f);
+                    if (GUILayout.Button("  Start Analyze Sprites Atlas  ", style, GUILayout.Height(22f)))
+                    {
+                        SpriteAtlasAnalyzer.Analyze(atlasOutputPath.stringValue, null);
+                    }
+                    
+                    GUILayout.FlexibleSpace();
+                }
+                GUILayout.Space(5f);
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    GUILayout.FlexibleSpace();
+                    GUIStyle style = new GUIStyle(GUI.skin.button)
+                    {
+                        fontSize = 14
+                    };
+                    if (GUILayout.Button("    Add New View Data    ", style))
+                    {
+                        viewMetaDatas.InsertArrayElementAtIndex(0);
+                        treeView.Reload();
+                    }
+                    GUILayout.Space(10f);
+                }
 
-            settings.ApplyModifiedProperties();
+                EditorGUILayout.Space(10f);
+                float height = position.height - 120f;
+                using (new EditorGUILayout.ScrollViewScope(Vector2.zero, false, false, GUILayout.Width(position.width),
+                           GUILayout.Height(height)))
+                {
+                    treeView.OnGUI(new Rect(0, 0, position.width, height));
+                }
+
+                using (new EditorGUILayout.VerticalScope())
+                {
+                    EditorGUILayout.Space(5f);
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        GUIStyle style = new GUIStyle(EditorStyles.centeredGreyMiniLabel)
+                        {
+                            alignment = TextAnchor.MiddleRight,
+                            fontSize = 14
+                        };
+                        EditorGUILayout.LabelField($"【Total】: {viewMetaDatas.arraySize}", style);
+                        GUILayout.Space(10f);
+                    }
+                }
+                settings.ApplyModifiedProperties();
+            }
         }
     }
 
@@ -84,7 +148,7 @@ namespace BedRockEditor.UI
                 {
                     new()
                     {
-                        headerContent = new GUIContent("ModuleName"), canSort = false,
+                        headerContent = new GUIContent("ModuleName"), canSort = false, 
                         headerTextAlignment = TextAlignment.Center, minWidth = 200, maxWidth = 300, width = 250
                     },
                     new()
@@ -109,7 +173,7 @@ namespace BedRockEditor.UI
                     },
                     new()
                     {
-                        headerContent = new GUIContent("FullScreen"), canSort = true,
+                        headerContent = new GUIContent("FullScreen"), canSort = true, 
                         headerTextAlignment = TextAlignment.Center, minWidth = 100, maxWidth = 100, width = 100
                     },
                     new()
@@ -134,7 +198,6 @@ namespace BedRockEditor.UI
 
         protected override TreeViewItem BuildRoot()
         {
-            Debug.Log("BuildRoot");
             TreeViewItem root = new() { depth = -1 };
             var children = new List<TreeViewItem>();
             int size = viewMataData.arraySize;
