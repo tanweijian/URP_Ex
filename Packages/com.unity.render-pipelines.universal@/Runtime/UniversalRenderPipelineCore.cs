@@ -657,7 +657,7 @@ namespace UnityEngine.Rendering.Universal
         /// </summary>
         public Camera baseCamera;
 // extensions modify begin;        
-        public bool forceGammaColorSpace;
+        public bool renderingColorSpaceGamma;
         public bool requireLinearToSRGBConversion;
         public bool requireSRGBToLinearConversion;
 // extensions modify end;
@@ -1233,7 +1233,6 @@ namespace UnityEngine.Rendering.Universal
         public const string SRGBToLinearConversion = "_SRGB_TO_LINEAR_CONVERSION";
 
         /// <summary> Keyword used for gamma color space rendering.</summary>
-        /// UNITY_COLORSPACE_GAMMA
         public const string RenderingColorSpaceGamma = "RENDERING_COLORSPACE_GAMMA";
 // extensions modify end;
     }

@@ -1101,7 +1101,7 @@ namespace UnityEngine.Rendering.Universal
                 cameraData.xrRendering = false;
 				cameraData.allowHDROutput = false;
 // extensions modify begin;
-                cameraData.forceGammaColorSpace = QualitySettings.activeColorSpace == ColorSpace.Linear;
+                cameraData.renderingColorSpaceGamma = QualitySettings.activeColorSpace == ColorSpace.Linear;
 // extensions modify end;
             }
             else if (baseAdditionalCameraData != null)
@@ -1229,7 +1229,7 @@ namespace UnityEngine.Rendering.Universal
                 cameraData.screenSizeOverride = additionalCameraData.screenSizeOverride;
                 cameraData.screenCoordScaleBias = additionalCameraData.screenCoordScaleBias;
 // extensions modify begin;
-                cameraData.forceGammaColorSpace = additionalCameraData.RenderingColorSpaceGamma;
+                cameraData.renderingColorSpaceGamma = additionalCameraData.RenderingColorSpaceGamma;
 // extensions modify end;
             }
             else
@@ -1299,10 +1299,6 @@ namespace UnityEngine.Rendering.Universal
 #endif
 
             cameraData.backgroundColor = CoreUtils.ConvertSRGBToActiveColorSpace(backgroundColorSRGB);
-            
-// extensions modify begin;
-            // cameraData.captureActions = CameraCaptureBridge.GetCaptureActions(camera);
-// extensions modify end;
         }
 
         static void InitializeRenderingData(UniversalRenderPipelineAsset settings, ref CameraData cameraData, ref CullingResults cullResults,

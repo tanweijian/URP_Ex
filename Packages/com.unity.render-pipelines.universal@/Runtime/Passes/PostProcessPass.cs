@@ -669,7 +669,6 @@ namespace UnityEngine.Rendering.Universal
                             m_CameraTargetHandle?.Release();
                             m_CameraTargetHandle = RTHandles.Alloc(cameraTarget);
                         }
-
                         RenderingUtils.FinalBlit(cmd, ref cameraData, GetSource(), m_CameraTargetHandle, colorLoadAction, RenderBufferStoreAction.Store, m_Materials.uber, 0);
                         renderer.ConfigureCameraColorTarget(m_CameraTargetHandle);
                     }

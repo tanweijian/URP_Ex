@@ -764,7 +764,7 @@ namespace UnityEngine.Rendering.Universal
                 }
 
 // extensions modify begin;
-                m_ActiveCameraColorAttachment = (cameraData.forceGammaColorSpace && m_mixGammaColorSpace) ? m_GammaColorTexture : m_ColorBufferSystem.PeekBackBuffer();
+                m_ActiveCameraColorAttachment = (cameraData.renderingColorSpaceGamma && m_mixGammaColorSpace) ? m_GammaColorTexture : m_ColorBufferSystem.PeekBackBuffer();
 // extensions modify end;
                 m_ActiveCameraDepthAttachment = baseRenderer.m_ActiveCameraDepthAttachment;
                 m_XRTargetHandleAlias = baseRenderer.m_XRTargetHandleAlias;
@@ -1000,7 +1000,7 @@ namespace UnityEngine.Rendering.Universal
 #endif
             
 // extensions modify begin;
-            if (m_mixGammaColorSpace && ((cameraData.isSceneViewCamera && cameraData.forceGammaColorSpace) || cameraData.requireLinearToSRGBConversion))
+            if (m_mixGammaColorSpace && ((cameraData.isSceneViewCamera && cameraData.renderingColorSpaceGamma) || cameraData.requireLinearToSRGBConversion))
             {
                 RenderTextureDescriptor descriptor = cameraTargetDescriptor;
                 descriptor.depthBufferBits = (int)DepthBits.None;
@@ -1099,7 +1099,7 @@ namespace UnityEngine.Rendering.Universal
                 if (cameraData.isSceneViewCamera)
                 {
                     EnqueueOpaqueNormalPass(ref cameraData);
-                    if (m_mixGammaColorSpace && cameraData.forceGammaColorSpace)
+                    if (m_mixGammaColorSpace && cameraData.renderingColorSpaceGamma)
                     {
                         EnqueueOpaqueGammaPass(ref cameraData);
                         m_OpaqueLinearToSRGBConversionSceneView.Setup(m_ActiveCameraColorAttachment, m_GammaColorTexture);
@@ -1111,7 +1111,7 @@ namespace UnityEngine.Rendering.Universal
                 else
 #endif
                 {
-                    if (m_mixGammaColorSpace && cameraData.forceGammaColorSpace)
+                    if (m_mixGammaColorSpace && cameraData.renderingColorSpaceGamma)
                     {
                         EnqueueOpaqueGammaPass(ref cameraData);
                     }
@@ -1216,7 +1216,7 @@ namespace UnityEngine.Rendering.Universal
                 if (cameraData.isSceneViewCamera)
                 {
                     EnqueueTransparentNormalPass();
-                    if (m_mixGammaColorSpace && cameraData.forceGammaColorSpace)
+                    if (m_mixGammaColorSpace && cameraData.renderingColorSpaceGamma)
                     {
                         EnqueueTransparentGammaPass(ref cameraData);
                         m_TransparentLinearToSRGBConversionSceneView.Setup(m_ActiveCameraColorAttachment, m_GammaColorTexture);
@@ -1228,7 +1228,7 @@ namespace UnityEngine.Rendering.Universal
                 else
 #endif
                 {
-                    if (m_mixGammaColorSpace && cameraData.forceGammaColorSpace)
+                    if (m_mixGammaColorSpace && cameraData.renderingColorSpaceGamma)
                     {
                         EnqueueTransparentGammaPass(ref cameraData);
                     }

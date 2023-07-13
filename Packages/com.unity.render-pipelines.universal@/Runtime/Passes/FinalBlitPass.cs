@@ -51,7 +51,6 @@ namespace UnityEngine.Rendering.Universal.Internal
         /// </summary>
         /// <param name="baseDescriptor"></param>
         /// <param name="colorHandle"></param>
-        /// <param name="srgbSource"></param>
         [Obsolete("Use RTHandles for colorHandle")]
 // extensions modify begin;
         public void Setup(RenderTextureDescriptor baseDescriptor, RenderTargetHandle colorHandle, bool srgbSource)
@@ -69,7 +68,6 @@ namespace UnityEngine.Rendering.Universal.Internal
         /// </summary>
         /// <param name="baseDescriptor"></param>
         /// <param name="colorHandle"></param>
-        /// <param name="srgbSource"></param>
 // extensions modify begin;
         public void Setup(RenderTextureDescriptor baseDescriptor, RTHandle colorHandle, bool srgbSource)
 // extensions modify end;
